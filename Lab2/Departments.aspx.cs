@@ -14,6 +14,8 @@ namespace Lab2
 {
     public partial class Departments : System.Web.UI.Page
     {
+        private object savechanges;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //if loading the page for the first time, populate the department grid
@@ -21,7 +23,7 @@ namespace Lab2
             {
                 Session["SortColumn"] = "DepartmentID"; // default sort column
                 Session["SortDirection"] = "ASC";
-                // Get the student data
+                // Get the department data
                 this.GetDepartments();
             }
         }
@@ -44,8 +46,10 @@ namespace Lab2
                                 select allDepartments);
 
                 //bind the result to the Gridview
-                DepartmentsGridView.DataSource = Departments.ToList();
+              
+                DepartmentsGridView.DataSource = Departments.AsQueryable().OrderBy(SortString).ToList();
                 DepartmentsGridView.DataBind();
+
 
             }
         }/**
@@ -66,24 +70,25 @@ namespace Lab2
             // get the selected DepartmentID using the Grid's DataKey collection
             int DepartmentID = Convert.ToInt32(DepartmentsGridView.DataKeys[selectedRow].Values["DepartmentID"]);
 
-            // use EF to find the selected Department in the DB and remove it
+            // use EF to find the selected department in the DB and remove it
             using (DefaultConnection db = new DefaultConnection())
             {
                 // create object of the Department class and store the query string inside of it
-                Department deletedDepartment = (from DepartmentRecords in db.Departments
-                                          where DepartmentRecords.DepartmentID == DepartmentID
-                                          select DepartmentRecords).FirstOrDefault();
+                Department deletedDepartment = (from departmentRecords in db.Departments
+                                          where departmentRecords.DepartmentID == DepartmentID
+                                          select departmentRecords).FirstOrDefault();
 
-                // remove the selected Department from the db
+                // remove the selected department from the db
                 db.Departments.Remove(deletedDepartment);
 
                 // save my changes back to the database
-                // db.SaveChanges();
-
+                //db.SaveChanges();
                 // refresh the grid
                 this.GetDepartments();
             }
         }
+
+
 
         /**
          * <summary>

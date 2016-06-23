@@ -172,6 +172,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DefaultConnectionEF.cs" />
     <Compile Include="DepartmentDetails.aspx.cs">
       <DependentUpon>DepartmentDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
