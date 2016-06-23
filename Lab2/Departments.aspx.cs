@@ -44,10 +44,8 @@ namespace Lab2
                                 select allDepartments);
 
                 //bind the result to the Gridview
-              
-                DepartmentsGridView.DataSource = Departments.AsQueryable().OrderBy(SortString).ToList();
+                DepartmentsGridView.DataSource = Departments.ToList();
                 DepartmentsGridView.DataBind();
-
 
             }
         }/**
@@ -80,7 +78,7 @@ namespace Lab2
                 db.Departments.Remove(deletedDepartment);
 
                 // save my changes back to the database
-                db.SaveChanges();
+                // db.SaveChanges();
 
                 // refresh the grid
                 this.GetDepartments();
