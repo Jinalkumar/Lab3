@@ -44,8 +44,10 @@ namespace Lab2
                                 select allDepartments);
 
                 //bind the result to the Gridview
-                DepartmentsGridView.DataSource = Departments.ToList();
+              
+                DepartmentsGridView.DataSource = Departments.AsQueryable().OrderBy(SortString).ToList();
                 DepartmentsGridView.DataBind();
+
 
             }
         }/**

@@ -39,7 +39,7 @@ namespace Lab2
                 if (updatedDepartment != null)
                 {
                     NameTextBox.Text = updatedDepartment.Name;
-                    BudgetTextBox.Text = updatedDepartment.Budget.ToString("$");
+                    BudgetTextBox.Text = updatedDepartment.Budget.ToString();
                 }
             }
         }
